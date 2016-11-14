@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_conexion_http"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:weightSum="1"
+    tools:context="com.usuario.red.ConexionHTTP">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Introduzca una URL:" />
+
+        <EditText
+            android:id="@+id/edt_url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="http://portadaalta.club/cursos/">
+
+            <requestFocus />
+        </EditText>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1">
+
+            <RadioGroup
+                android:id="@+id/radioGrupo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.63"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rbtn_java"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:text="Java.net" />
+
+                <RadioButton
+                    android:id="@+id/rbtn_apache"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Apache" />
+
+                <RadioButton
+                    android:text="AAHC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rbtn_AAHC"
+                    android:layout_weight="1"
+                    android:checked="true" />
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/btn_conectar"
+                android:layout_width="85dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.32"
+                android:text="Conectar" />
+        </LinearLayout>
+
+        <WebView
+            android:id="@+id/webv_web"
+            android:layout_width="match_parent"
+            android:layout_height="314dp" />
+
+        <TextView
+            android:id="@+id/txv_resultado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0" />
+    </LinearLayout>
+</LinearLayout>
