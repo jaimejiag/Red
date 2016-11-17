@@ -1,15 +1,25 @@
 package com.usuario.red;
 
+import android.app.ProgressDialog;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.squareup.picasso.Picasso;
 
-public class Descarga extends AppCompatActivity implements View.OnClickListener{
+import java.io.File;
+
+import cz.msebera.android.httpclient.Header;
+
+public class Descarga extends AppCompatActivity implements View.OnClickListener {
+    public static final String NOMBRE_FICHERO = "prueba.png";
     EditText texto;
     Button botonImagen, botonFichero;
     ImageView imagen;
@@ -43,7 +53,39 @@ public class Descarga extends AppCompatActivity implements View.OnClickListener{
         }
 
         if (v == botonFichero) {
-
+            descarga(texto.getText().toString());
         }
     }
+
+    private void descarga(String url) {
+        final ProgressDialog progreso = new ProgressDialog(this);
+        File miFichero = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), NOMBRE_FICHERO);
+
+        RestClient.get(url, new FileAsyncHttpResponseHandler(miFichero) {
+            @Override
+            public void onStart() {
+                super.onStart();
+                progreso.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progreso.setMessage("Conectando . . .");
+                progreso.setCancelable(false);
+                progreso.show();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
+                progreso.dismiss();
+                Toast.makeText(getApplicationContext(), "Fallo: " + throwable.getMessage(), Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, File file) {
+                progreso.dismiss();
+                Toast.makeText(getApplicationContext(), "Descarga OK\n " + file.getPath(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 }
+
+
+
+
